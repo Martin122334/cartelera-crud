@@ -10,12 +10,21 @@ const User = require('./models/User');          // ← nuevo
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-app.use(cors({ origin: '*' }));
+app.use(cors({
+  origin: [
+    'http://localhost:4200',
+    'https://Martin122334.github.io'  // ← reemplaza con tu usuario
+  ],
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  allowedHeaders: ['Content-Type', 'Authorization']
+}));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.use('/api/movies', movieRoutes);
-app.use('/api/auth', authRoutes);              // ← nuevo
+app.use('/api/auth', authRoutes);              
+
+
 
 app.get('/api/health', (req, res) => {
   res.json({ status: 'OK', timestamp: new Date().toISOString() });
