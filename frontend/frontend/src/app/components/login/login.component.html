@@ -1,0 +1,99 @@
+<div class="login-wrapper">
+  <div class="cinema-overlay"></div>
+
+  <div class="login-card">
+    <div class="text-center mb-4">
+      <div class="cinema-logo mb-2">
+        <span class="display-4">🎬</span>
+      </div>
+      <h3 class="fw-bold cinema-title">MovieMood</h3>
+      <p class="cinema-subtitle">
+        {{ isRegister ? 'NUEVO REPARTO' : 'ACCESO RESTRINGIDO' }}
+      </p>
+    </div>
+
+    <form [formGroup]="form" (ngSubmit)="onSubmit()" novalidate>
+      <!-- Nombre (solo registro) -->
+      <div class="mb-3" *ngIf="isRegister">
+        <label class="form-label cinema-label">Nombre completo</label>
+        <input
+          type="text"
+          class="form-control cinema-input"
+          formControlName="name"
+          [class.is-invalid]="submitted && f['name'].errors"
+          placeholder="Tu nombre"
+        />
+        <div class="invalid-feedback cinema-feedback">
+          <span *ngIf="f['name'].errors?.['required']">El nombre es requerido.</span>
+          <span *ngIf="f['name'].errors?.['minlength']">Mínimo 2 caracteres.</span>
+        </div>
+      </div>
+
+      <!-- Email -->
+      <div class="mb-3">
+        <label class="form-label cinema-label">Correo electrónico</label>
+        <input
+          type="email"
+          class="form-control cinema-input"
+          formControlName="email"
+          [class.is-invalid]="submitted && f['email'].errors"
+          placeholder="correo@ejemplo.com"
+        />
+        <div class="invalid-feedback cinema-feedback">
+          <span *ngIf="f['email'].errors?.['required']">El correo es requerido.</span>
+          <span *ngIf="f['email'].errors?.['email']">Ingresa un correo válido.</span>
+        </div>
+      </div>
+
+      <!-- Contraseña -->
+      <div class="mb-4">
+        <label class="form-label cinema-label">Contraseña</label>
+        <div class="input-group">
+          <input
+            [type]="showPassword ? 'text' : 'password'"
+            class="form-control cinema-input"
+            formControlName="password"
+            [class.is-invalid]="submitted && f['password'].errors"
+            placeholder="••••••"
+          />
+          <button
+            type="button"
+            class="btn cinema-password-toggle"
+            (click)="showPassword = !showPassword"
+          >
+            {{ showPassword ? '🙈' : '👁️' }}
+          </button>
+        </div>
+        <div class="invalid-feedback cinema-feedback">
+          <span *ngIf="f['password'].errors?.['required']">La contraseña es requerida.</span>
+          <span *ngIf="f['password'].errors?.['minlength']">Mínimo 6 caracteres.</span>
+        </div>
+      </div>
+
+      <!-- Botón principal -->
+      <button
+        type="submit"
+        class="btn cinema-btn w-100 py-2 mb-3"
+        [disabled]="loading"
+      >
+        <span *ngIf="loading" class="spinner-border spinner-border-sm me-2"></span>
+        {{ isRegister ? 'Registrarse' : 'Iniciar sesión' }}
+      </button>
+
+
+      <!-- Toggle login/registro -->
+      <div class="text-center mt-3">
+        <span class="cinema-toggle-text">
+          {{ isRegister ? '¿Ya tienes cuenta?' : '¿No tienes cuenta?' }}
+        </span>
+        <button
+          type="button"
+          class="btn cinema-toggle-link ms-1"
+          (click)="toggleMode()"
+        >
+          {{ isRegister ? 'Iniciar sesión' : 'Registrarse' }}
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

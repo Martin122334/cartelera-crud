@@ -1,0 +1,192 @@
+/* Estilos globales */
+body {
+  background-color: #f8f9fa;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+.movie-card {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  cursor: pointer;
+
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15) !important;
+  }
+}
+
+.movie-poster {
+  height: 280px;
+  object-fit: cover;
+}
+
+// ═══════════════════════════════════════
+//  SweetAlert2 — Tema Cine Oscuro
+// ═══════════════════════════════════════
+
+$swal-black:  #0a0c10;
+$swal-dark:   #111316;
+$swal-gray:   #1e2025;
+$swal-gold:   #f5c518;
+$swal-border: rgba(255, 193, 7, 0.2);
+$swal-text:   #e0e0e0;
+$swal-muted:  #888;
+
+.swal2-popup {
+  background: $swal-gray !important;
+  border: 1px solid $swal-border !important;
+  border-radius: 20px !important;
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.6) !important;
+  font-family: inherit !important;
+  padding: 2rem !important;
+}
+
+// Título
+.swal2-title {
+  color: $swal-gold !important;
+  font-weight: 800 !important;
+  letter-spacing: 1px !important;
+  font-size: 1.5rem !important;
+  text-shadow: 0 0 8px rgba(245, 197, 24, 0.3) !important;
+}
+
+// Texto
+.swal2-html-container,
+.swal2-content {
+  color: $swal-muted !important;
+  font-size: 0.95rem !important;
+  line-height: 1.6 !important;
+}
+
+// Icono de éxito
+.swal2-icon.swal2-success {
+  border-color: $swal-gold !important;
+
+  .swal2-success-ring {
+    border-color: rgba(245, 197, 24, 0.3) !important;
+  }
+
+  [class^='swal2-success-line'] {
+    background-color: $swal-gold !important;
+  }
+}
+
+// Icono de advertencia
+.swal2-icon.swal2-warning {
+  border-color: #ffc107 !important;
+  color: #ffc107 !important;
+}
+
+// Icono de error
+.swal2-icon.swal2-error {
+  border-color: #dc3545 !important;
+
+  [class^='swal2-x-mark-line'] {
+    background-color: #dc3545 !important;
+  }
+}
+
+// Icono de info
+.swal2-icon.swal2-info {
+  border-color: #0dcaf0 !important;
+  color: #0dcaf0 !important;
+}
+
+// Botón confirmar
+.swal2-confirm {
+  background: linear-gradient(135deg, #f5c518, #c9a005) !important;
+  color: $swal-black !important;
+  border: none !important;
+  border-radius: 40px !important;
+  font-weight: 700 !important;
+  letter-spacing: 1px !important;
+  padding: 0.7rem 2rem !important;
+  font-size: 0.9rem !important;
+  text-transform: uppercase !important;
+  transition: all 0.2s ease !important;
+  box-shadow: none !important;
+
+  &:hover {
+    transform: translateY(-2px) !important;
+    box-shadow: 0 8px 20px rgba(245, 197, 24, 0.35) !important;
+    background: linear-gradient(135deg, #f7d04a, #f5c518) !important;
+  }
+
+  &:focus {
+    box-shadow: 0 0 0 3px rgba(245, 197, 24, 0.3) !important;
+  }
+}
+
+// Botón cancelar
+.swal2-cancel {
+  background: transparent !important;
+  color: $swal-muted !important;
+  border: 1px solid $swal-border !important;
+  border-radius: 40px !important;
+  font-weight: 600 !important;
+  padding: 0.7rem 2rem !important;
+  font-size: 0.9rem !important;
+  transition: all 0.2s ease !important;
+  box-shadow: none !important;
+
+  &:hover {
+    border-color: $swal-gold !important;
+    color: $swal-gold !important;
+    background: rgba(245, 197, 24, 0.08) !important;
+  }
+}
+
+// Botón deny (para 3 botones)
+.swal2-deny {
+  background: linear-gradient(135deg, #dc3545, #b02a37) !important;
+  color: white !important;
+  border: none !important;
+  border-radius: 40px !important;
+  font-weight: 700 !important;
+  padding: 0.7rem 2rem !important;
+  transition: all 0.2s ease !important;
+
+  &:hover {
+    transform: translateY(-2px) !important;
+    box-shadow: 0 8px 20px rgba(220, 53, 69, 0.35) !important;
+  }
+}
+
+// Contenedor de botones
+.swal2-actions {
+  gap: 0.8rem !important;
+  margin-top: 1.5rem !important;
+}
+
+// Barra de progreso del timer
+.swal2-timer-progress-bar {
+  background: $swal-gold !important;
+  height: 3px !important;
+}
+
+// Fondo oscuro del overlay
+.swal2-backdrop-show,
+.swal2-container {
+  background: rgba(0, 0, 0, 0.75) !important;
+  backdrop-filter: blur(4px) !important;
+}
+
+// Input dentro de swal (si usas inputValue)
+.swal2-input,
+.swal2-textarea {
+  background: $swal-gray !important;
+  border: 1px solid $swal-border !important;
+  color: $swal-text !important;
+  border-radius: 12px !important;
+
+  &:focus {
+    border-color: $swal-gold !important;
+    box-shadow: 0 0 0 3px rgba(245, 197, 24, 0.2) !important;
+  }
+}
+
+// Validación del input
+.swal2-validation-message {
+  background: rgba(220, 53, 69, 0.1) !important;
+  color: #ff6b6b !important;
+  border-radius: 8px !important;
+}

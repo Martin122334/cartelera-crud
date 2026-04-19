@@ -1,0 +1,237 @@
+// Variables de cine oscuro
+$cinema-black: #0a0c10;
+$cinema-dark: #111316;
+$cinema-gold: #f5c518;
+$cinema-gold-dim: rgba(245, 197, 24, 0.3);
+$cinema-gray: #1e2025;
+$cinema-text: #e0e0e0;
+$cinema-text-muted: #888;
+$cinema-border: rgba(255, 193, 7, 0.2);
+
+.login-wrapper {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: radial-gradient(circle at 20% 30%, $cinema-dark, $cinema-black);
+  overflow: hidden;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(ellipse at center, transparent 40%, rgba(0, 0, 0, 0.6) 100%);
+    pointer-events: none;
+    z-index: 1;
+  }
+}
+
+.cinema-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: repeating-linear-gradient(
+    0deg,
+    rgba(0, 0, 0, 0.03) 0px,
+    rgba(0, 0, 0, 0.03) 2px,
+    transparent 2px,
+    transparent 6px
+  );
+  pointer-events: none;
+  z-index: 2;
+}
+
+.login-card {
+  position: relative;
+  z-index: 3;
+  width: 100%;
+  max-width: 420px;
+  background: rgba(10, 12, 16, 0.9);
+  backdrop-filter: blur(8px);
+  border: 1px solid $cinema-border;
+  border-radius: 24px;
+  padding: 2rem;
+  box-shadow: 0 25px 45px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(245, 197, 24, 0.1) inset;
+  transition: all 0.3s ease;
+
+  &:hover {
+    border-color: $cinema-gold-dim;
+    box-shadow: 0 30px 50px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(245, 197, 24, 0.2) inset;
+  }
+}
+
+.cinema-logo {
+  span {
+    filter: drop-shadow(0 0 8px $cinema-gold);
+    animation: flicker 3s infinite;
+  }
+}
+
+.cinema-title {
+  color: $cinema-gold;
+  letter-spacing: 3px;
+  font-weight: 800;
+  font-size: 1.8rem;
+  text-transform: uppercase;
+  text-shadow: 0 0 5px rgba(245, 197, 24, 0.5);
+}
+
+.cinema-subtitle {
+  color: $cinema-text-muted;
+  font-size: 0.7rem;
+  letter-spacing: 1.5px;
+  border-left: 2px solid $cinema-gold;
+  padding-left: 10px;
+  display: inline-block;
+  margin-top: 5px;
+}
+
+.cinema-label {
+  color: $cinema-text;
+  font-weight: 600;
+  font-size: 0.85rem;
+  letter-spacing: 0.5px;
+  margin-bottom: 0.5rem;
+}
+
+.cinema-input {
+  background: $cinema-gray !important;
+  border: 1px solid $cinema-border !important;
+  color: $cinema-text !important;
+  border-radius: 12px !important;
+  padding: 0.75rem 1rem !important;
+  transition: all 0.2s ease;
+
+  &:focus {
+    border-color: $cinema-gold !important;
+    box-shadow: 0 0 0 3px rgba(245, 197, 24, 0.2) !important;
+    // lighten(#1e2025, 3%) ≈ #22252b
+    background: #22252b !important;
+  }
+
+  &::placeholder {
+    color: rgba(136, 136, 136, 0.5) !important;
+    font-size: 0.85rem;
+  }
+
+  &.is-invalid {
+    border-color: #dc3545 !important;
+    box-shadow: 0 0 0 2px rgba(220, 53, 69, 0.2) !important;
+  }
+}
+
+.cinema-password-toggle {
+  background: $cinema-gray;
+  border: 1px solid $cinema-border;
+  border-left: none;
+  color: $cinema-text-muted;
+  border-radius: 0 12px 12px 0;
+  padding: 0 1rem;
+
+  &:hover {
+    // lighten(#1e2025, 5%) ≈ #252830
+    background: #252830;
+    color: $cinema-gold;
+  }
+
+  &:focus {
+    box-shadow: none;
+  }
+}
+
+.cinema-feedback {
+  font-size: 0.75rem;
+  margin-top: 0.3rem;
+  color: #ff6b6b;
+}
+
+// darken(#f5c518, 10%) = #c9a005  |  lighten(#f5c518, 5%) = #f7d04a
+.cinema-btn {
+  background: linear-gradient(135deg, #f5c518, #c9a005);
+  border: none;
+  color: $cinema-black;
+  font-weight: 700;
+  letter-spacing: 1px;
+  border-radius: 40px;
+  transition: all 0.2s ease;
+  text-transform: uppercase;
+  font-size: 0.9rem;
+
+  &:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(245, 197, 24, 0.3);
+    background: linear-gradient(135deg, #f7d04a, #f5c518);
+  }
+
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+}
+
+.cinema-demo {
+  background: rgba(245, 197, 24, 0.08);
+  border-left: 3px solid $cinema-gold;
+  padding: 0.6rem;
+  font-size: 0.75rem;
+  text-align: center;
+  color: $cinema-text-muted;
+  border-radius: 8px;
+  margin-top: 1rem;
+
+  strong {
+    color: $cinema-gold;
+  }
+}
+
+.cinema-toggle-text {
+  color: $cinema-text-muted;
+  font-size: 0.8rem;
+}
+
+// lighten(#f5c518, 10%) = #f9db7c
+.cinema-toggle-link {
+  background: none;
+  border: none;
+  color: $cinema-gold;
+  font-weight: 600;
+  font-size: 0.8rem;
+  text-decoration: none;
+  padding: 0;
+
+  &:hover {
+    text-decoration: underline;
+    color: #f9db7c;
+  }
+}
+
+@keyframes flicker {
+  0%,
+  100% {
+    opacity: 1;
+    text-shadow: 0 0 5px $cinema-gold;
+  }
+  92% { opacity: 0.9; }
+  95% {
+    opacity: 0.6;
+    text-shadow: 0 0 2px $cinema-gold;
+  }
+  96% { opacity: 1; }
+}
+
+@media (max-width: 480px) {
+  .login-card {
+    margin: 1rem;
+    padding: 1.5rem;
+  }
+
+  .cinema-title {
+    font-size: 1.5rem;
+  }
+}

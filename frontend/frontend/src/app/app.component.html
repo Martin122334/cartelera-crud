@@ -1,0 +1,14 @@
+<!-- Navbar solo si está logueado -->
+<nav class="navbar navbar-dark bg-dark px-4" *ngIf="authService.isLoggedIn()">
+  <a class="navbar-brand fw-bold" routerLink="/movies">🎬 Cartelera</a>
+  <div class="d-flex align-items-center gap-3">
+    <span class="text-light small">
+      👤 {{ authService.getCurrentUser()?.name }}
+    </span>
+    <button class="btn btn-outline-light btn-sm" (click)="logout()">
+      Cerrar sesión
+    </button>
+  </div>
+</nav>
+
+<router-outlet></router-outlet>

@@ -1,0 +1,83 @@
+<div class="cinema-container">
+  <!-- Header cinematográfico -->
+  <div class="cinema-header">
+    <div>
+      <h1 class="cinema-title-main">
+        <span class="cinema-icon">🎬</span> MovieMood
+      </h1>
+      <small class="cinema-subtitle-main">Gestión de películas en cartelera</small>
+    </div>
+    <a routerLink="/movies/new" class="btn cinema-btn-primary">
+      <span class="btn-icon">+</span> Nueva Película
+    </a>
+  </div>
+
+  <!-- Filtros estilo cine -->
+  <div class="cinema-filters-card">
+    <div class="row g-3">
+      <div class="col-md-6">
+        <input
+          type="text"
+          class="cinema-input"
+          placeholder="🔍 Buscar por título..."
+          [(ngModel)]="searchTerm"
+          (input)="onSearch()">
+      </div>
+      <div class="col-md-4">
+        <select class="cinema-select" [(ngModel)]="selectedGenre" (change)="onFilter()">
+          <option value="">Todos los géneros</option>
+          <option *ngFor="let g of genres" [value]="g">{{ g }}</option>
+        </select>
+      </div>
+      <div class="col-md-2">
+        <button class="cinema-btn-secondary w-100" (click)="selectedGenre=''; searchTerm=''; loadMovies()">
+          Limpiar
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Loading cinematográfico -->
+  <div *ngIf="loading" class="cinema-loading">
+    <div class="cinema-spinner"></div>
+    <p class="cinema-loading-text">Cargando películas...</p>
+    <div class="cinema-film-strip"></div>
+  </div>
+
+  <!-- Sin resultados -->
+  <div *ngIf="!loading && movies.length === 0" class="cinema-empty">
+    <div class="cinema-empty-icon">🎭</div>
+    <h5 class="cinema-empty-title">No hay películas en cartelera</h5>
+    <a routerLink="/movies/new" class="btn cinema-btn-primary mt-3">Agregar primera película</a>
+  </div>
+
+  <!-- Grid de películas -->
+  <div class="row g-4" *ngIf="!loading && movies.length > 0">
+    <div class="col-md-4 col-lg-3" *ngFor="let movie of movies">
+      <div class="cinema-movie-card">
+        <div class="cinema-poster-wrapper">
+          <img [src]="movie.imageUrl" class="cinema-poster" [alt]="movie.title"
+               onerror="this.src='https://via.placeholder.com/300x450?text=SIN+IMAGEN'">
+          <div class="cinema-poster-overlay">
+            <span class="cinema-rating-badge" [class]="getRatingColor(movie.rating)">
+              ⭐ {{ movie.rating }}/10
+            </span>
+          </div>
+        </div>
+        <div class="cinema-card-content">
+          <h6 class="cinema-movie-title">{{ movie.title }}</h6>
+          <p class="cinema-director">{{ movie.director }}</p>
+          <span class="cinema-genre-badge">{{ movie.genre }}</span>
+          <div class="cinema-movie-footer">
+            <span class="cinema-duration">⏱️ {{ movie.duration }} min</span>
+          </div>
+        </div>
+        <div class="cinema-card-actions">
+          <a [routerLink]="['/movies', movie.id]" class="cinema-btn-sm cinema-btn-info">Ver</a>
+          <a [routerLink]="['/movies/edit', movie.id]" class="cinema-btn-sm cinema-btn-warning">Editar</a>
+          <button class="cinema-btn-sm cinema-btn-danger" (click)="confirmDelete(movie)">Eliminar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

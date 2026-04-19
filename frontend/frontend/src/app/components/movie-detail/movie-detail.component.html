@@ -1,0 +1,93 @@
+<div class="cinema-detail-container">
+  <div class="cinema-detail-wrapper">
+
+    <!-- Loading -->
+    <div *ngIf="loading" class="cinema-loading">
+      <div class="cinema-spinner"></div>
+      <p class="cinema-loading-text">Cargando película...</p>
+    </div>
+
+    <!-- Error sin alerta — mensaje en pantalla -->
+    <div *ngIf="!loading && error" class="cinema-not-found">
+      <div class="cinema-empty-icon">🎭</div>
+      <h4 class="cinema-empty-title">Película no encontrada</h4>
+      <a routerLink="/movies" class="cinema-btn-primary mt-3">
+        Volver a cartelera
+      </a>
+    </div>
+
+    <!-- Detalle -->
+    <ng-container *ngIf="!loading && !error && movie">
+
+      <a routerLink="/movies" class="cinema-back-btn">
+        <span class="back-icon">←</span> Volver
+      </a>
+
+      <div class="cinema-detail-card">
+        <div class="cinema-detail-grid">
+
+          <!-- Póster -->
+          <div class="cinema-detail-poster">
+            <div class="cinema-poster-frame">
+              <img
+                [src]="movie.imageUrl || 'https://via.placeholder.com/300x450?text=Sin+imagen'"
+                [alt]="movie.title"
+                class="cinema-poster-img"
+                onerror="this.src='https://via.placeholder.com/300x450?text=Sin+imagen'">
+              <div class="cinema-poster-glow"></div>
+            </div>
+          </div>
+
+          <!-- Info -->
+          <div class="cinema-detail-info">
+
+            <div class="cinema-detail-header">
+              <h2 class="cinema-detail-title">{{ movie.title }}</h2>
+              <span class="cinema-genre-badge-lg">{{ movie.genre }}</span>
+            </div>
+
+            <p class="cinema-director-info">
+              Dirigida por <strong>{{ movie.director }}</strong>
+            </p>
+
+            <div class="cinema-stats-grid">
+              <div class="cinema-stat-card">
+                <div class="cinema-stat-value" [class]="getRatingClass(movie.rating)">
+                  ⭐ {{ movie.rating }}/10
+                </div>
+                <div class="cinema-stat-label">Calificación</div>
+              </div>
+              <div class="cinema-stat-card">
+                <div class="cinema-stat-value">{{ movie.duration }} min</div>
+                <div class="cinema-stat-label">Duración</div>
+              </div>
+            </div>
+
+            <div class="cinema-release-date">
+              <span class="release-icon">📅</span>
+              <span class="release-label">Estreno:</span>
+              <span class="release-value">{{ movie.releaseDate }}</span>
+            </div>
+
+            <div class="cinema-synopsis" *ngIf="movie.synopsis">
+              <h6 class="synopsis-title">Sinopsis</h6>
+              <p class="synopsis-text">{{ movie.synopsis }}</p>
+            </div>
+
+            <div class="cinema-actions">
+              <a [routerLink]="['/movies/edit', movie.id]"
+                 class="cinema-btn-warning-lg">
+                ✏️ Editar
+              </a>
+              <button class="cinema-btn-danger-lg" (click)="confirmDelete()">
+                🗑️ Eliminar
+              </button>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+    </ng-container>
+  </div>
+</div>

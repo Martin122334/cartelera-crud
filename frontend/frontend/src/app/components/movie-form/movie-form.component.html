@@ -1,0 +1,171 @@
+<div class="cinema-form-container">
+  <div class="cinema-form-wrapper">
+
+    <!-- Encabezado -->
+    <div class="cinema-form-header">
+      <a routerLink="/movies" class="cinema-back-btn-sm">
+        <span class="back-icon">←</span> Volver
+      </a>
+      <h2 class="cinema-form-title">
+        <span class="title-icon">{{ isEdit ? '✏️' : '🎬' }}</span>
+        {{ isEdit ? 'Editar Película' : 'Nueva Película' }}
+      </h2>
+    </div>
+
+    <!-- Formulario -->
+    <div class="cinema-form-card" *ngIf="!loading">
+      <div class="cinema-form-body">
+        <form [formGroup]="form" (ngSubmit)="onSubmit()" novalidate>
+
+          <!-- Título -->
+          <div class="cinema-form-group">
+            <label class="cinema-label">
+              Título <span class="required-star">*</span>
+            </label>
+            <input
+              type="text"
+              class="cinema-input"
+              formControlName="title"
+              [class.is-invalid]="submitted && f['title'].errors"
+              [class.is-valid]="submitted && !f['title'].errors"
+              placeholder="Ej: Avengers: Endgame">
+            <div class="cinema-feedback" *ngIf="submitted && f['title'].errors">
+              <span *ngIf="f['title'].errors['required']">El título es requerido.</span>
+              <span *ngIf="f['title'].errors['minlength']">Mínimo 2 caracteres.</span>
+            </div>
+          </div>
+
+          <div class="cinema-row">
+            <!-- Director -->
+            <div class="cinema-form-group">
+              <label class="cinema-label">
+                Director <span class="required-star">*</span>
+              </label>
+              <input
+                type="text"
+                class="cinema-input"
+                formControlName="director"
+                [class.is-invalid]="submitted && f['director'].errors"
+                [class.is-valid]="submitted && !f['director'].errors"
+                placeholder="Ej: Christopher Nolan">
+              <div class="cinema-feedback" *ngIf="submitted && f['director'].errors">
+                El director es requerido.
+              </div>
+            </div>
+
+            <!-- Género -->
+            <div class="cinema-form-group">
+              <label class="cinema-label">
+                Género <span class="required-star">*</span>
+              </label>
+              <select
+                class="cinema-select"
+                formControlName="genre"
+                [class.is-invalid]="submitted && f['genre'].errors"
+                [class.is-valid]="submitted && !f['genre'].errors">
+                <option value="">-- Selecciona un género --</option>
+                <option *ngFor="let g of genres" [value]="g">{{ g }}</option>
+              </select>
+              <div class="cinema-feedback" *ngIf="submitted && f['genre'].errors">
+                Selecciona un género.
+              </div>
+            </div>
+          </div>
+
+          <div class="cinema-row">
+            <!-- Duración -->
+            <div class="cinema-form-group">
+              <label class="cinema-label">
+                Duración (min) <span class="required-star">*</span>
+              </label>
+              <input
+                type="number"
+                class="cinema-input"
+                formControlName="duration"
+                [class.is-invalid]="submitted && f['duration'].errors"
+                [class.is-valid]="submitted && !f['duration'].errors"
+                placeholder="120" min="1" max="999">
+              <div class="cinema-feedback" *ngIf="submitted && f['duration'].errors">
+                Ingresa duración válida (1-999 min).
+              </div>
+            </div>
+
+            <!-- Fecha -->
+            <div class="cinema-form-group">
+              <label class="cinema-label">
+                Fecha de estreno <span class="required-star">*</span>
+              </label>
+              <input
+                type="date"
+                class="cinema-input"
+                formControlName="releaseDate"
+                [class.is-invalid]="submitted && f['releaseDate'].errors"
+                [class.is-valid]="submitted && !f['releaseDate'].errors">
+              <div class="cinema-feedback" *ngIf="submitted && f['releaseDate'].errors">
+                La fecha es requerida.
+              </div>
+            </div>
+
+            <!-- Calificación -->
+            <div class="cinema-form-group">
+              <label class="cinema-label">
+                Calificación (0-10) <span class="required-star">*</span>
+              </label>
+              <input
+                type="number"
+                class="cinema-input"
+                formControlName="rating"
+                [class.is-invalid]="submitted && f['rating'].errors"
+                [class.is-valid]="submitted && !f['rating'].errors"
+                placeholder="8.5" min="0" max="10" step="0.1">
+              <div class="cinema-feedback" *ngIf="submitted && f['rating'].errors">
+                Calificación entre 0 y 10.
+              </div>
+            </div>
+          </div>
+
+          <!-- URL Póster -->
+          <div class="cinema-form-group">
+            <label class="cinema-label">URL del póster</label>
+            <input
+              type="url"
+              class="cinema-input"
+              formControlName="imageUrl"
+              placeholder="https://ejemplo.com/poster.jpg">
+            <div class="cinema-helper-text">Opcional — URL de imagen del póster.</div>
+          </div>
+
+          <!-- Sinopsis -->
+          <div class="cinema-form-group">
+            <label class="cinema-label">Sinopsis</label>
+            <textarea
+              class="cinema-textarea"
+              formControlName="synopsis"
+              rows="3"
+              placeholder="Descripción breve de la película...">
+            </textarea>
+          </div>
+
+          <!-- Botones -->
+          <div class="cinema-form-actions">
+            <button type="submit" class="cinema-btn-primary-lg" [disabled]="loading">
+              <span class="btn-icon">{{ isEdit ? '💾' : '➕' }}</span>
+              {{ isEdit ? 'Actualizar Película' : 'Guardar Película' }}
+            </button>
+            <a routerLink="/movies" class="cinema-btn-secondary-lg">
+              Cancelar
+            </a>
+          </div>
+
+        </form>
+      </div>
+    </div>
+
+    <!-- Loading (solo si es necesario) -->
+    <div *ngIf="loading" class="cinema-loading-form">
+      <div class="cinema-spinner-small"></div>
+      <p class="cinema-loading-text">Cargando película...</p>
+    </div>
+
+  </div>
+</div>

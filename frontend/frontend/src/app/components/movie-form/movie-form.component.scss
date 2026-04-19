@@ -1,0 +1,348 @@
+// Variables de cine oscuro
+$cinema-black: #0a0c10;
+$cinema-dark: #111316;
+$cinema-gold: #f5c518;
+$cinema-gold-dim: rgba(245, 197, 24, 0.3);
+$cinema-gray: #1e2025;
+$cinema-gray-light: #2a2d35;
+$cinema-text: #e0e0e0;
+$cinema-text-muted: #888;
+$cinema-border: rgba(255, 193, 7, 0.2);
+$cinema-red: #dc3545;
+
+// Contenedor principal
+.cinema-form-container {
+  background: radial-gradient(circle at 20% 30%, $cinema-dark, $cinema-black);
+  min-height: 100vh;
+  padding: 2rem;
+  position: relative;
+
+  &::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(ellipse at center, transparent 40%, rgba(0, 0, 0, 0.5) 100%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  > * {
+    position: relative;
+    z-index: 1;
+  }
+}
+
+.cinema-form-wrapper {
+  max-width: 750px;
+  margin: 0 auto;
+}
+
+// Header
+.cinema-form-header {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
+  border-bottom: 2px solid $cinema-gold-dim;
+  flex-wrap: wrap;
+}
+
+.cinema-back-btn-sm {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  background: rgba(30, 32, 37, 0.8);
+  backdrop-filter: blur(10px);
+  border: 1px solid $cinema-border;
+  color: $cinema-text;
+  padding: 0.5rem 1rem;
+  border-radius: 40px;
+  text-decoration: none;
+  font-size: 0.85rem;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+
+  .back-icon {
+    font-size: 1rem;
+    transition: transform 0.3s ease;
+  }
+
+  &:hover {
+    border-color: $cinema-gold;
+    color: $cinema-gold;
+    transform: translateX(-4px);
+
+    .back-icon {
+      transform: translateX(-2px);
+    }
+  }
+}
+
+.cinema-form-title {
+  color: $cinema-gold;
+  font-weight: 800;
+  font-size: 1.8rem;
+  letter-spacing: 2px;
+  margin: 0;
+  text-shadow: 0 0 10px rgba(245, 197, 24, 0.3);
+
+  .title-icon {
+    margin-right: 0.5rem;
+    filter: drop-shadow(0 0 5px $cinema-gold);
+  }
+
+  @media (max-width: 480px) {
+    font-size: 1.3rem;
+  }
+}
+
+// Card del formulario
+.cinema-form-card {
+  background: rgba(30, 32, 37, 0.9);
+  backdrop-filter: blur(10px);
+  border: 1px solid $cinema-border;
+  border-radius: 24px;
+  overflow: hidden;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+  transition: border-color 0.3s ease;
+
+  &:hover {
+    border-color: $cinema-gold-dim;
+  }
+}
+
+.cinema-form-body {
+  padding: 2rem;
+
+  @media (max-width: 480px) {
+    padding: 1.2rem;
+  }
+}
+
+// Grupos de formulario
+.cinema-form-group {
+  margin-bottom: 1.4rem;
+}
+
+.cinema-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.2rem;
+
+  @media (max-width: 600px) {
+    grid-template-columns: 1fr;
+  }
+
+  // Cuando tiene 3 hijos (duración, fecha, calificación)
+  &:has(> :nth-child(3)) {
+    grid-template-columns: 1fr 1fr 1fr;
+
+    @media (max-width: 768px) {
+      grid-template-columns: 1fr 1fr;
+    }
+
+    @media (max-width: 480px) {
+      grid-template-columns: 1fr;
+    }
+  }
+}
+
+// Labels
+.cinema-label {
+  display: block;
+  color: $cinema-text;
+  font-weight: 600;
+  font-size: 0.85rem;
+  letter-spacing: 0.5px;
+  margin-bottom: 0.5rem;
+}
+
+.required-star {
+  color: $cinema-red;
+  margin-left: 2px;
+}
+
+// Inputs
+// adjust-color(#1e2025, lightness +3%) = #22252b
+.cinema-input,
+.cinema-select,
+.cinema-textarea {
+  width: 100%;
+  background: $cinema-gray;
+  border: 1px solid $cinema-border;
+  color: $cinema-text;
+  border-radius: 12px;
+  padding: 0.75rem 1rem;
+  font-size: 0.9rem;
+  transition: all 0.2s ease;
+  appearance: none;
+
+  &:focus {
+    outline: none;
+    border-color: $cinema-gold;
+    box-shadow: 0 0 0 3px rgba(245, 197, 24, 0.2);
+    background: #22252b;
+  }
+
+  &::placeholder {
+    color: rgba(136, 136, 136, 0.5);
+    font-size: 0.85rem;
+  }
+
+  &.is-invalid {
+    border-color: $cinema-red;
+    box-shadow: 0 0 0 2px rgba(220, 53, 69, 0.2);
+  }
+
+  &.is-valid {
+    border-color: #4caf50;
+    box-shadow: 0 0 0 2px rgba(76, 175, 80, 0.2);
+  }
+}
+
+.cinema-select {
+  cursor: pointer;
+
+  option {
+    background: $cinema-dark;
+    color: $cinema-text;
+  }
+}
+
+.cinema-textarea {
+  resize: vertical;
+  min-height: 90px;
+  font-family: inherit;
+}
+
+// Mensajes de feedback
+.cinema-feedback {
+  color: #ff6b6b;
+  font-size: 0.78rem;
+  margin-top: 0.35rem;
+  letter-spacing: 0.3px;
+}
+
+.cinema-helper-text {
+  color: $cinema-text-muted;
+  font-size: 0.78rem;
+  margin-top: 0.35rem;
+}
+
+// Botones de acción
+.cinema-form-actions {
+  display: flex;
+  gap: 1rem;
+  margin-top: 2rem;
+  flex-wrap: wrap;
+}
+
+// darken(#f5c518, 10%) = #c9a005  |  lighten(#f5c518, 5%) = #f7d04a
+.cinema-btn-primary-lg {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: linear-gradient(135deg, #f5c518, #c9a005);
+  border: none;
+  color: $cinema-black;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  font-size: 0.9rem;
+  border-radius: 40px;
+  padding: 0.8rem 2rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  flex: 1;
+  justify-content: center;
+
+  .btn-icon {
+    font-size: 1rem;
+  }
+
+  &:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(245, 197, 24, 0.35);
+    background: linear-gradient(135deg, #f7d04a, #f5c518);
+  }
+
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+  }
+}
+
+.cinema-btn-secondary-lg {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: 1px solid $cinema-border;
+  color: $cinema-text;
+  font-weight: 600;
+  font-size: 0.9rem;
+  border-radius: 40px;
+  padding: 0.8rem 1.5rem;
+  text-decoration: none;
+  transition: all 0.3s ease;
+
+  &:hover {
+    border-color: $cinema-gold;
+    color: $cinema-gold;
+    background: rgba(245, 197, 24, 0.08);
+  }
+}
+
+// Loading dentro del form
+.cinema-loading-form {
+  text-align: center;
+  padding: 4rem 2rem;
+}
+
+.cinema-spinner-small {
+  width: 40px;
+  height: 40px;
+  border: 3px solid $cinema-border;
+  border-top-color: $cinema-gold;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+  margin: 0 auto 1rem;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.cinema-loading-text {
+  color: $cinema-text-muted;
+  font-size: 0.9rem;
+  letter-spacing: 1px;
+}
+
+// Responsive
+@media (max-width: 768px) {
+  .cinema-form-container {
+    padding: 1rem;
+  }
+
+  .cinema-form-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.8rem;
+  }
+
+  .cinema-form-actions {
+    flex-direction: column;
+  }
+
+  .cinema-btn-primary-lg,
+  .cinema-btn-secondary-lg {
+    width: 100%;
+  }
+}
